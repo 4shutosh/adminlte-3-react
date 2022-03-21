@@ -18,20 +18,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [t] = useTranslation();
 
-  // const login = async (email: string, password: string) => {
-  //   try {
-  //     setAuthLoading(true);
-  //     const token = await AuthService.loginByAuth(email, password);
-  //     toast.success('Login is succeed!');
-  //     setAuthLoading(false);
-  //     dispatch(loginUser(token));
-  //     navigate('/');
-  //   } catch (error: any) {
-  //     setAuthLoading(false);
-  //     toast.error(error.message || 'Failed');
-  //   }
-  // };
-
   const loginByGoogle = async () => {
     try {
       setGoogleAuthLoading(true);
@@ -45,20 +31,6 @@ const Login = () => {
       toast.error(error.message || 'Failed');
     }
   };
-
-  // const loginByFacebook = async () => {
-  //   try {
-  //     setFacebookAuthLoading(true);
-  //     const token = await AuthService.loginByFacebook();
-  //     toast.success('Login is succeeded!');
-  //     setFacebookAuthLoading(false);
-  //     dispatch(loginUser(token));
-  //     navigate('/');
-  //   } catch (error: any) {
-  //     setFacebookAuthLoading(false);
-  //     toast.error(error.message || 'Failed');
-  //   }
-  // };
 
   setWindowClass('hold-transition login-page');
 
