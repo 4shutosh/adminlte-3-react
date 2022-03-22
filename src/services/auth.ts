@@ -43,7 +43,7 @@ export const loginByGoogle = async () => {
 
 const firebaseGoogleProvider = new firebaseAuth.GoogleAuthProvider();
 export const loginByFirebaseAndAPI = async () => {
-  const token = await firebaseAuth
+  const response = await firebaseAuth
     .signInWithPopup(firebaseAuth.getAuth(), firebaseGoogleProvider)
     .then((result) => {
       const loggedInUser = result.user;
@@ -54,23 +54,23 @@ export const loginByFirebaseAndAPI = async () => {
       console.log(error.message);
       alert(error.message);
     });
-  return token;
+  return response;
 };
 
 async function loginCollegeAPI(loggedInUser: User) {
-  const token = await axios
+  const userResponse = await axios
     .post(
       `${process.env.REACT_APP_BASE_API_URL}/login?email=${loggedInUser.email}&name=${loggedInUser.displayName}&imageUrl=${loggedInUser.photoURL}`
     )
     .then((response) => response.data)
     .then((data) => {
       localStorage.setItem('token', data.accessToken);
-      return data.accessToken;
+      return data;
     })
     .catch((error) => {
       console.error(error);
     });
-  return token;
+  return userResponse;
 }
 
 export const registerByGoogle = async () => {

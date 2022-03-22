@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Outlet} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Gatekeeper} from 'gatekeeper-client-sdk';
+// import {Gatekeeper} from 'gatekeeper-client-sdk';
 import {loadUser, logoutUser} from '@store/reducers/auth';
 import {toggleSidebarMenu} from '@app/store/reducers/ui';
 import {addWindowClass, removeWindowClass, sleep} from '@app/utils/helpers';
@@ -12,6 +12,7 @@ import Footer from '@app/modules/main/footer/Footer';
 
 const Main = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.auth.currentUser);
   const menuSidebarCollapsed = useSelector(
     (state: any) => state.ui.menuSidebarCollapsed
   );
@@ -27,8 +28,7 @@ const Main = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await Gatekeeper.getProfile();
-      dispatch(loadUser(response));
+      dispatch(loadUser(user));
       await sleep(1000);
       setIsAppLoaded(true);
     } catch (error) {

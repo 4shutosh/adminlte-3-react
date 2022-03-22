@@ -15,22 +15,8 @@ export const MENU: IMenuItem[] = [
     path: '/'
   },
   {
-    name: 'menusidebar.label.blank',
+    name: 'menusidebar.label.library',
     path: '/blank'
-  },
-  {
-    name: 'menusidebar.label.mainMenu',
-    children: [
-      {
-        name: 'menusidebar.label.subMenu',
-        path: '/sub-menu-1'
-      },
-
-      {
-        name: 'menusidebar.label.blank',
-        path: '/sub-menu-2'
-      }
-    ]
   }
 ];
 
@@ -39,6 +25,8 @@ const MenuSidebar = () => {
   const sidebarSkin = useSelector((state: any) => state.ui.sidebarSkin);
   const menuItemFlat = useSelector((state: any) => state.ui.menuItemFlat);
   const menuChildIndent = useSelector((state: any) => state.ui.menuChildIndent);
+
+  console.log(`current user ${user.email}`);
 
   return (
     <aside className={`main-sidebar elevation-4 ${sidebarSkin}`}>
@@ -49,7 +37,7 @@ const MenuSidebar = () => {
           className="brand-image img-circle elevation-3"
           style={{opacity: '.8'}}
         />
-        <span className="brand-text font-weight-light">AdminLTE 3</span>
+        <span className="brand-text font-weight-light">IIITN Dashboard</span>
       </Link>
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
