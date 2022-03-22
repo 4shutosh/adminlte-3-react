@@ -18,17 +18,31 @@ const Login = () => {
   const navigate = useNavigate();
   const [t] = useTranslation();
 
-  const loginByGoogle = async () => {
+  // const loginByGoogle = async () => {
+  //   try {
+  //     setGoogleAuthLoading(true);
+  //     const token = await AuthService.loginByGoogle();
+  //     toast.success('Login is succeeded!');
+  //     setGoogleAuthLoading(false);
+  //     dispatch(loginUser(token));
+  //     navigate('/');
+  //   } catch (error: any) {
+  //     setGoogleAuthLoading(false);
+  //     toast.error(error.message || 'Failed');
+  //   }
+  // };
+
+  const loginProcess = async () => {
     try {
       setGoogleAuthLoading(true);
-      const token = await AuthService.loginByGoogle();
-      toast.success('Login is succeeded!');
+      const loginToken = await AuthService.loginByFirebaseAndAPI();
+      if (loginToken !== undefined) toast.success(`Login Success!`);
       setGoogleAuthLoading(false);
-      dispatch(loginUser(token));
+      dispatch(loginUser(loginToken));
       navigate('/');
     } catch (error: any) {
       setGoogleAuthLoading(false);
-      toast.error(error.message || 'Failed');
+      toast.error(error.message || 'Failed!');
     }
   };
 
@@ -39,8 +53,8 @@ const Login = () => {
       <div className="card card-outline card-primary">
         <div className="card-header text-center">
           <Link to="/" className="h1">
-            <b>Admin</b>
-            <span>LTE</span>
+            <b>CollegeApp IITN </b>
+            <span>Dashboard</span>
           </Link>
         </div>
         <div className="card-body">
@@ -50,7 +64,7 @@ const Login = () => {
               block
               icon="google"
               theme="danger"
-              onClick={loginByGoogle}
+              onClick={loginProcess}
               isLoading={isGoogleAuthLoading}
               disabled={isAuthLoading || isFacebookAuthLoading}
             >

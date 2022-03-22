@@ -1,36 +1,25 @@
-<p align="center" style="margin-bottom: 32px">
-  <a href="https://erdkse.com" >
-    <img src="https://raw.githubusercontent.com/erdkse/adminlte-3-react/main/public/img/logo.png" alt="AdminLTE logo" width="75" height="75">
-  </a>
-</p>
+# CollegeApp IIITN Dashboard
 
-<h1 align="center">Admin LTE 3.2.0 - React 17.0.2</h1>
+Other than the normal react setup, this now requires the .env file in the root directory with the following env variables
 
-<p>
-  This repository is a form of original AdminLTE project. It is aim to use AdminLTE template with React.
-</p>
-<br>
+`````
+REACT_APP_API_KEY=""
+REACT_APP_AUTH_DOMAIN=""
+REACT_APP_DATABASE_URL=""
+REACT_APP_PROJECT_ID=""
+REACT_APP_STORAGE_BUCKET=""
+REACT_APP_MESSAGING_SENDER_ID=""
+REACT_APP_APP_ID="1"
+REACT_APP_BASE_API_URL=""
+`````
+> Get the above values from firebase console, also make sure the web client secret keys are same on the firebase console and google cloud console to prevent the invalid_client (Unauthorized) error for google sign in\
+> Reference to this life saving [answer](https://serverfault.com/a/949700)
 
-<span align="center">
+````
+REACT_APP_BASE_API_URL="http://192.168.0.104:8090"
+````
+> set `REACT_APP_BASE_API_URL` in order to work with [CollegeAppBackend](https://github.com/4shutosh/CollegeAppBackend) local development environment else add the prod host url 
 
-[![Run on Repl.it](https://repl.it/badge/github/erdkse/adminlte-3-react)](https://repl.it/github/erdkse/adminlte-3-react)
-![Vercel](https://img.shields.io/github/deployments/erdkse/adminlte-3-react/production.svg?logo=vercel&label=vercel)
-![Issues](https://img.shields.io/github/issues/erdkse/adminlte-3-react)
-![Forks](https://img.shields.io/github/forks/erdkse/adminlte-3-react)
-![Stars](https://img.shields.io/github/stars/erdkse/adminlte-3-react)
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-![GitHub last commit](https://img.shields.io/github/last-commit/erdkse/adminlte-3-react.svg)
-[![License](https://img.shields.io/github/license/erdkse/adminlte-3-react.svg)](LICENSE)
-![Sponsors](https://img.shields.io/github/sponsors/erdkse.svg)
-
-</span>
-
-<br>
-
-To login website use:
-
-`username:` admin@example.com<br />
-`password:` admin<br />
 
 ## Available Scripts
 
