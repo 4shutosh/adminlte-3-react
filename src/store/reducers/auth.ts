@@ -10,8 +10,9 @@ const initialState: AuthState = {
   isLoggedIn: !!localStorage.getItem('token'),
   token: localStorage.getItem('token'),
   currentUser: {
-    email: 'mail@example.com',
-    picture: null
+    email: localStorage.getItem('userEmail'),
+    name: localStorage.getItem('userName'),
+    picture: localStorage.getItem('userPicture')
   }
 };
 
@@ -20,7 +21,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, {payload}) => {
-      localStorage.setItem('token', payload);
+      localStorage.setItem('token', payload.accessToken);
+      localStorage.setItem('userEmail', payload.email);
+      localStorage.setItem('userName', payload.name);
+      localStorage.setItem('userPicture', payload.imageUrl);
       state.isLoggedIn = true;
       state.token = payload;
     },

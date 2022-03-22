@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {DateTime} from 'luxon';
+// import {DateTime} from 'luxon';
 import {useTranslation} from 'react-i18next';
 import {logoutUser} from '@store/reducers/auth';
 import {Dropdown} from '@components';
@@ -58,10 +58,7 @@ const UserDropdown = () => {
             <p>
               {user.email}
               <small>
-                <span>Member since </span>
-                <span>
-                  {DateTime.fromISO(user.createdAt).toFormat('dd LLL yyyy')}
-                </span>
+                <span>{user.name}</span>
               </small>
             </p>
           </li>

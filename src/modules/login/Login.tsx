@@ -12,34 +12,24 @@ import * as AuthService from '../../services/auth';
 const Login = () => {
   const [isAuthLoading] = useState(false);
   const [isGoogleAuthLoading, setGoogleAuthLoading] = useState(false);
-  const [isFacebookAuthLoading] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [t] = useTranslation();
 
-  // const loginByGoogle = async () => {
-  //   try {
-  //     setGoogleAuthLoading(true);
-  //     const token = await AuthService.loginByGoogle();
-  //     toast.success('Login is succeeded!');
-  //     setGoogleAuthLoading(false);
-  //     dispatch(loginUser(token));
-  //     navigate('/');
-  //   } catch (error: any) {
-  //     setGoogleAuthLoading(false);
-  //     toast.error(error.message || 'Failed');
-  //   }
-  // };
-
   const loginProcess = async () => {
     try {
       setGoogleAuthLoading(true);
-      const loginToken = await AuthService.loginByFirebaseAndAPI();
-      if (loginToken !== undefined) toast.success(`Login Success!`);
-      setGoogleAuthLoading(false);
-      dispatch(loginUser(loginToken));
-      navigate('/');
+      const response = await AuthService.loginByFirebaseAndAPI();
+      if (response !== undefined) {
+        toast.success(`Login Success!`);
+        setGoogleAuthLoading(false);
+        dispatch(loginUser(response));
+        navigate('/');
+      } else {
+        setGoogleAuthLoading(false);
+        toast.error('Failed!');
+      }
     } catch (error: any) {
       setGoogleAuthLoading(false);
       toast.error(error.message || 'Failed!');
@@ -66,7 +56,7 @@ const Login = () => {
               theme="danger"
               onClick={loginProcess}
               isLoading={isGoogleAuthLoading}
-              disabled={isAuthLoading || isFacebookAuthLoading}
+              disabled={isAuthLoading}
             >
               {/* @ts-ignore */}
               {t('login.button.signIn.social', {what: 'Google'})}
