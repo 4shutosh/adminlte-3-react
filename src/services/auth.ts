@@ -47,6 +47,7 @@ export const loginByFirebaseAndAPI = async () => {
     .signInWithPopup(firebaseAuth.getAuth(), firebaseGoogleProvider)
     .then((result) => {
       const loggedInUser = result.user;
+      console.log(result);
       console.log('GLogin Success, hitting API now!');
       return loginCollegeAPI(loggedInUser);
     })
