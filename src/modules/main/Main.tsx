@@ -9,10 +9,10 @@ import ControlSidebar from '@app/modules/main/control-sidebar/ControlSidebar';
 import Header from '@app/modules/main/header/Header';
 import MenuSidebar from '@app/modules/main/menu-sidebar/MenuSidebar';
 import Footer from '@app/modules/main/footer/Footer';
+import * as AuthService from '../../services/auth';
 
 const Main = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.currentUser);
   const menuSidebarCollapsed = useSelector(
     (state: any) => state.ui.menuSidebarCollapsed
   );
@@ -28,6 +28,7 @@ const Main = () => {
 
   const fetchProfile = async () => {
     try {
+      const user = await AuthService.getLoggedInUser();
       dispatch(loadUser(user));
       await sleep(1000);
       setIsAppLoaded(true);

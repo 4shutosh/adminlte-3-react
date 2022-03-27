@@ -66,7 +66,10 @@ async function loginCollegeAPI(loggedInUser: User) {
     .then((response) => response.data)
     .then((data) => {
       localStorage.setItem('token', data.accessToken);
-      return data;
+      localStorage.setItem('userEmail', data.email);
+      localStorage.setItem('userName', data.name);
+      localStorage.setItem('userPicture', data.imageUrl);
+      return data.accessToken;
     })
     .catch((error) => {
       console.error(error);
@@ -74,6 +77,13 @@ async function loginCollegeAPI(loggedInUser: User) {
   return userResponse;
 }
 
+export const getLoggedInUser = async () => {
+  return {
+    email: localStorage.getItem('userEmail'),
+    name: localStorage.getItem('userName'),
+    picture: localStorage.getItem('userPicture')
+  };
+};
 export const registerByGoogle = async () => {
   const token = await Gatekeeper.registerByGoogle();
   localStorage.setItem('token', token);

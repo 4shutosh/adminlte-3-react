@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {baseUrl} from '@app/globalVars';
 import {GridColDef, DataGrid} from '@mui/x-data-grid';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 
 // const rows: GridRowsProp = [
@@ -18,7 +19,7 @@ const BookList = () => {
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [columns, setColumns] = React.useState<GridColDef[]>([]);
-  const token = localStorage.getItem('token');
+  const token: string = useSelector((state: any) => state.auth.token);
   const getBooksApi = `${baseUrl}/books`;
 
   useEffect(() => {
@@ -44,7 +45,9 @@ const BookList = () => {
         setColumns(columns);
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

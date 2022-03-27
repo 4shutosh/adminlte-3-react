@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import {useTranslation} from 'react-i18next';
 import {loginUser} from '@store/reducers/auth';
 import {Button} from '@components';
-import {setWindowClass} from '@app/utils/helpers';
+import {setWindowClass, sleep} from '@app/utils/helpers';
 
 import * as AuthService from '../../services/auth';
 
@@ -25,6 +25,7 @@ const Login = () => {
         toast.success(`Login Success!`);
         setGoogleAuthLoading(false);
         dispatch(loginUser(response));
+        await sleep(1000);
         navigate('/');
       } else {
         setGoogleAuthLoading(false);
