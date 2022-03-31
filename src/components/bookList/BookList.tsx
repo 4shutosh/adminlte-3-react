@@ -31,11 +31,13 @@ const BookList = () => {
         });
         // tempArr created because we cannot directly print ownerData which is a {}.
         // mapped over whole data, and replaced the {} with userEmail so that the grid can render it
-        // const tempArr = jsonObjArr.map((obj: any) => {
-        //   obj.ownerData = obj.ownerData.email;
-        //   return obj;
-        // });
-        setRows(jsonObjArr);
+        const tempArr = jsonObjArr.map((obj: any) => {
+          if (obj.ownerData != null) {
+            obj.ownerData = obj.ownerData.email;
+          }
+          return obj;
+        });
+        setRows(tempArr);
         setColumns(columns);
         setLoading(false);
       })

@@ -19,8 +19,8 @@ export const MENU: IMenuItem[] = [
     path: '/library'
   },
   {
-    name: 'menusidebar.label.blank',
-    path: '/blank'
+    name: 'Books',
+    path: '/books'
   },
   {
     name: 'Courses',
