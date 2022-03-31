@@ -2,6 +2,7 @@ import {baseUrl} from '@app/globalVars';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import {toast} from 'react-toastify';
 import React, {useState} from 'react';
 import QRCode from 'react-qr-code';
 import {useSelector} from 'react-redux';
@@ -27,6 +28,12 @@ const BookForm = () => {
       )
       .then((response) => {
         console.log(response);
+        if (response.data.status === 200) {
+          toast.success(response.data.message);
+          setSubmittedCorrectly(true);
+        } else {
+          toast.error(response.data.message);
+        }
         setLibraryBookNumber(0);
         setBookName('');
         setMaxDaysAllowed(0);
@@ -50,6 +57,7 @@ const BookForm = () => {
   const [bookName, setBookName] = useState('');
   const [maxDaysAllowed, setMaxDaysAllowed] = useState(0);
   const [libraryBookNumber, setLibraryBookNumber] = useState(0);
+  const [submittedCorrectly, setSubmittedCorrectly] = useState(false);
 
   return (
     <>
@@ -91,11 +99,13 @@ const BookForm = () => {
           justifyContent: 'space-between'
         }}
       >
-        <QRCode
-          style={{alignSelf: 'center', margin: '20 auto'}}
-          value={`${libraryBookNumber} ${bookName} ${maxDaysAllowed}`}
-          size={256}
-        />
+        {submittedCorrectly && (
+          <QRCode
+            style={{alignSelf: 'center', margin: '20 auto'}}
+            value={`${libraryBookNumber} ${bookName} ${maxDaysAllowed}`}
+            size={256}
+          />
+        )}
       </div>
     </>
   );

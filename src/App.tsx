@@ -14,6 +14,7 @@ import Dashboard from '@pages/Dashboard';
 import Blank from '@pages/Blank';
 import SubMenu from '@pages/SubMenu';
 import Profile from '@pages/profile/Profile';
+import Courses from '@pages/Courses';
 
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/sub-menu-2" element={<Blank />} />
             <Route path="/sub-menu-1" element={<SubMenu />} />
             <Route path="/blank" element={<Blank />} />
+            <Route path="/courses" element={<Courses />} />
             <Route path="/library" element={<Blank />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Dashboard />} />
