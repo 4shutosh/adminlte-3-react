@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, {useState} from 'react';
-import QRCode from 'react-qr-code';
 import {toast} from 'react-toastify';
 import instance from '@app/utils/axios';
 
@@ -23,7 +22,6 @@ const CourseForm = () => {
         console.log(response);
         if (response.data.status === 200) {
           toast.success(response.data.message);
-          setSubmittedCorrectly(true);
         } else {
           toast.error(response.data.message);
         }
@@ -61,7 +59,6 @@ const CourseForm = () => {
   const [courseCode, setCourseCode] = useState('');
   const [courseFacultyName, setcourseFacultyName] = useState('');
   const [courseDescription, setCourseDescription] = useState('');
-  const [submittedCorrectly, setSubmittedCorrectly] = useState(false);
 
   return (
     <>
@@ -113,22 +110,6 @@ const CourseForm = () => {
           Submit
         </Button>
       </Box>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-      >
-        {submittedCorrectly && (
-          <QRCode
-            style={{alignSelf: 'center', margin: '20 auto'}}
-            value={`${courseFacultyName} ${courseName} ${courseCode}`}
-            size={256}
-          />
-        )}
-      </div>
     </>
   );
 };

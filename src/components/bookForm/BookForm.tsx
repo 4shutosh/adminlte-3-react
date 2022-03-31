@@ -21,6 +21,7 @@ const BookForm = () => {
         console.log(response);
         if (response.data.status === 200) {
           toast.success(response.data.message);
+          setLibraryBookNumberResponse(libraryBookNumber);
           setSubmittedCorrectly(true);
         } else {
           toast.error(response.data.message);
@@ -48,6 +49,7 @@ const BookForm = () => {
   const [bookName, setBookName] = useState('');
   const [maxDaysAllowed, setMaxDaysAllowed] = useState(0);
   const [libraryBookNumber, setLibraryBookNumber] = useState(0);
+  const [libraryBookNumberResponse, setLibraryBookNumberResponse] = useState(0);
   const [submittedCorrectly, setSubmittedCorrectly] = useState(false);
 
   return (
@@ -93,7 +95,11 @@ const BookForm = () => {
         {submittedCorrectly && (
           <QRCode
             style={{alignSelf: 'center', margin: '20 auto'}}
-            value={`${libraryBookNumber} ${bookName} ${maxDaysAllowed}`}
+            value={`
+            {
+                "identifier": "69694242",
+                "data": ${libraryBookNumberResponse}
+            }`}
             size={256}
           />
         )}
