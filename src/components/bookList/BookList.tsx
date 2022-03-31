@@ -4,17 +4,6 @@ import {GridColDef, DataGrid} from '@mui/x-data-grid';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 
-// const rows: GridRowsProp = [
-//   {id: 1, col1: 'Hello', col2: 'World'},
-//   {id: 2, col1: 'DataGridPro', col2: 'is Awesome'},
-//   {id: 3, col1: 'MUI', col2: 'is Amazing'}
-// ];
-
-// const columns: GridColDef[] = [
-//   {field: 'col1', headerName: 'Column 1', width: 150},
-//   {field: 'col2', headerName: 'Column 2', width: 150}
-// ];
-
 const BookList = () => {
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -30,7 +19,6 @@ const BookList = () => {
         }
       })
       .then((response) => {
-        console.log(response);
         const columns: GridColDef[] = [];
         const jsonObjArr = response.data.data;
         const sampleData = jsonObjArr[0];
@@ -41,6 +29,12 @@ const BookList = () => {
             width: 200
           });
         });
+        // tempArr created because we cannot directly print ownerData which is a {}.
+        // mapped over whole data, and replaced the {} with userEmail so that the grid can render it
+        // const tempArr = jsonObjArr.map((obj: any) => {
+        //   obj.ownerData = obj.ownerData.email;
+        //   return obj;
+        // });
         setRows(jsonObjArr);
         setColumns(columns);
         setLoading(false);
@@ -52,6 +46,7 @@ const BookList = () => {
 
   return (
     <DataGrid
+      autoHeight
       density="compact"
       rows={rows}
       columns={columns}
