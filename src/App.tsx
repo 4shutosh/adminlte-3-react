@@ -10,7 +10,6 @@ import {calculateWindowSize} from '@app/utils/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import {setWindowSize} from '@app/store/reducers/ui';
 
-import Dashboard from '@pages/Dashboard';
 import Blank from '@pages/Blank';
 import SubMenu from '@pages/SubMenu';
 import Profile from '@pages/profile/Profile';
@@ -54,7 +53,7 @@ const App = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/library" element={<Blank />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/" element={<Dashboard />} />
+            {/* <Route path="/" element={<Dashboard />} /> */}
           </Route>
         </Route>
       </Routes>

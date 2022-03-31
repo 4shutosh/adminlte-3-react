@@ -11,14 +11,6 @@ export interface IMenuItem {
 
 export const MENU: IMenuItem[] = [
   {
-    name: 'menusidebar.label.dashboard',
-    path: '/'
-  },
-  {
-    name: 'menusidebar.label.library',
-    path: '/library'
-  },
-  {
     name: 'Books',
     path: '/books'
   },
@@ -33,8 +25,6 @@ const MenuSidebar = () => {
   const sidebarSkin = useSelector((state: any) => state.ui.sidebarSkin);
   const menuItemFlat = useSelector((state: any) => state.ui.menuItemFlat);
   const menuChildIndent = useSelector((state: any) => state.ui.menuChildIndent);
-
-  console.log(`current user ${user.email}`);
 
   return (
     <aside className={`main-sidebar elevation-4 ${sidebarSkin}`}>
@@ -56,10 +46,8 @@ const MenuSidebar = () => {
               alt="User"
             />
           </div>
-          <div className="info">
-            <Link to="/profile" className="d-block">
-              {user.email}
-            </Link>
+          <div className="info" style={{color: 'white'}}>
+            {user.email}
           </div>
         </div>
         <nav className="mt-2" style={{overflowY: 'hidden'}}>
