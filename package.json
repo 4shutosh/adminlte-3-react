@@ -1,9 +1,11 @@
 {
   "name": "adminlte-3-react",
   "version": "0.1.0",
-  "homepage": "",
+  "homepage": "https://college-app-iiitn-dashboard.github.io",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "craco start",
     "build": "craco build",
     "dev": "craco test",
