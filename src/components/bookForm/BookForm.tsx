@@ -1,31 +1,22 @@
 import {baseUrl} from '@app/globalVars';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
 import {toast} from 'react-toastify';
 import React, {useState} from 'react';
 import QRCode from 'react-qr-code';
-import {useSelector} from 'react-redux';
+import instance from '@app/utils/axios';
 
 const BookForm = () => {
-  const token: string = useSelector((state: any) => state.auth.token);
-  const header = {
-    Authorization: `Bearer ${token}`
-  };
   const addBookApi = `${baseUrl}/books/insert`;
   const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log(bookName, maxDaysAllowed);
-    axios
-      .post(
-        addBookApi,
-        {
-          libraryBookNumber,
-          daysAllowed: maxDaysAllowed,
-          bookName
-        },
-        {headers: header}
-      )
+    instance
+      .post(addBookApi, {
+        libraryBookNumber,
+        daysAllowed: maxDaysAllowed,
+        bookName
+      })
       .then((response) => {
         console.log(response);
         if (response.data.status === 200) {

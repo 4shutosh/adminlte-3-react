@@ -1,23 +1,17 @@
 import React, {useEffect} from 'react';
 import {baseUrl} from '@app/globalVars';
 import {GridColDef, DataGrid} from '@mui/x-data-grid';
-import {useSelector} from 'react-redux';
-import axios from 'axios';
+import instance from '@app/utils/axios';
 
 const BookList = () => {
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [columns, setColumns] = React.useState<GridColDef[]>([]);
-  const token: string = useSelector((state: any) => state.auth.token);
   const getBooksApi = `${baseUrl}/courses`;
 
   useEffect(() => {
-    axios
-      .get(getBooksApi, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+    instance
+      .get(getBooksApi)
       .then((response) => {
         const columns: GridColDef[] = [];
         const jsonObjArr = response.data.data;
