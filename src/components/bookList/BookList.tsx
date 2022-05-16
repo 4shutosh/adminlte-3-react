@@ -30,10 +30,19 @@ const BookList = ({getSelection}: any) => {
         }
       })
       .then((response) => {
+        console.log(response);
         const columns: GridColDef[] = [];
         const jsonObjArr = response.data.data;
-        const sampleData = jsonObjArr[0];
+        const sampleData = {
+          bookId: '',
+          libraryBookNumber: 0,
+          bookName: '',
+          maximumDaysAllowed: 0,
+          isAvailableToIssue: false,
+          ownerData: ''
+        };
         Object.keys(sampleData).forEach((key) => {
+          console.log(key);
           columns.push({
             field: key,
             headerName: key,
