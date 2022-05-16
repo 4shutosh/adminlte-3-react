@@ -18,6 +18,7 @@ import UserList from '@app/components/userList/UserList';
 import {baseUrl} from '@app/globalVars';
 import instance from '@app/utils/axios';
 import {toast} from 'react-toastify';
+import UpdatePenaltyForm from '@app/components/updatePenaltyForm/UpdatePenaltyForm';
 
 // import {Grid} from '@mui/material';
 
@@ -43,16 +44,17 @@ function TabPanel(props: any) {
 const QrElement = ({book}: {book: any}) => {
   return (
     <div>
-      <Stack>
+      <Stack direction="column" alignItems="center" spacing={1}>
         <QRCode
           value={`
               {
                   "identifier": "69694242",
-                  "data": "${book.libraryBookNumber}"
+                  "data": ${book.libraryBookNumber}
               }`}
           size={128}
         />
         <p>{book.bookName}</p>
+        <p>{book.libraryBookNumber}</p>
       </Stack>
     </div>
   );
@@ -135,6 +137,7 @@ const Blank = () => {
         <Tab label="Add a book" />
         <Tab label="Return a book" />
         <Tab label="User Library" />
+        <Tab label="Update Penalty" />
       </Tabs>
       <TabPanel value={value} index={0}>
         <div
@@ -145,6 +148,7 @@ const Blank = () => {
         >
           <BookList getSelection={getSelectionDatafromGrid} />
           <ReactToPrint
+            pageStyle="@media print { body { -webkit-print-color-adjust: exact; } @page { size: A4; margin: 200mm !important }}"
             trigger={() => (
               <Button variant="contained" onClick={handlePrintQR}>
                 Print QR
@@ -172,6 +176,9 @@ const Blank = () => {
         <Button variant="contained" onClick={handleReturn}>
           Return Selected books
         </Button>
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <UpdatePenaltyForm />
       </TabPanel>
     </>
   );
