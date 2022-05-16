@@ -26,6 +26,7 @@ const AddAnnouncementForm = () => {
         }
         setAnnouncementTitle('');
         setAnnouncementMessage('');
+        setAnnouncementLink('');
       })
       .catch((error) => {
         console.log(error);
