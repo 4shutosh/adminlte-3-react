@@ -11,6 +11,7 @@ const UserLibraryForm = ({getSelectedUser}: any) => {
   const [submitted, setSubmitted] = useState(false);
   const token: string = useSelector((state: any) => state.auth.token);
   const userLibraryApi = `${baseUrl}/library?userId=${user}`;
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     axios
@@ -22,7 +23,7 @@ const UserLibraryForm = ({getSelectedUser}: any) => {
       .then((response) => {
         setUserList(response.data.data.userBookDataList);
         getSelectedUser(user);
-        setTotalPenalty(response.data.penalty);
+        setTotalPenalty(response.data.data.totalPenalty);
         console.log(response);
         console.log(totalPenalty);
         setSubmitted(true);
@@ -57,11 +58,15 @@ const UserLibraryForm = ({getSelectedUser}: any) => {
       </div>
       {submitted && (
         <>
-          <div>
+          <div style={{marginTop: '30px'}}>
             {userList.map((userBookData: any) => {
+              console.log(userBookData);
               return (
-                <p key={userBookData.libraryBookNumber}>
-                  {userBookData.libraryBookNumber}
+                <p
+                  style={{color: 'red', fontSize: '0.8rem'}}
+                  key={userBookData.book.libraryBookNumber}
+                >
+                  Library Book # - {userBookData.book.libraryBookNumber}
                 </p>
               );
             })}

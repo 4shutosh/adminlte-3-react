@@ -15,6 +15,10 @@ import {useRef} from 'react';
 import ReactToPrint from 'react-to-print';
 import UserLibraryForm from '@app/components/userLibrary/UserLibraryForm';
 import UserList from '@app/components/userList/UserList';
+import {baseUrl} from '@app/globalVars';
+import instance from '@app/utils/axios';
+import {toast} from 'react-toastify';
+
 // import {Grid} from '@mui/material';
 
 function TabPanel(props: any) {
@@ -44,7 +48,7 @@ const QrElement = ({book}: {book: any}) => {
           value={`
               {
                   "identifier": "69694242",
-                  "data": ${book.libraryBookNumber},
+                  "data": "${book.libraryBookNumber}"
               }`}
           size={128}
         />
@@ -80,6 +84,7 @@ const Blank = () => {
   const [value, setValue] = React.useState(0);
   const [selectedData, setSelectedData] = React.useState([]);
   const [selectedUser, setSelectedUser] = React.useState(null);
+  const [temp, setTemp] = React.useState(0);
 
   const handlePrintQR = () => {};
   const handleChange = (event: any, newValue: any) => {
@@ -93,6 +98,32 @@ const Blank = () => {
   const getSelectedUser = (data: any) => {
     setSelectedUser(data);
   };
+
+  const handleReturn = (event: any) => {
+    event.preventDefault();
+    const returnApi = `${baseUrl}/library/return`;
+    selectedData.forEach((book: any) => {
+      console.log(book);
+      instance
+        .post(returnApi, {
+          libraryBookNumber: book.libraryBookNumber,
+          userEmail: selectedUser
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.status === 200) {
+            setTemp(temp + 1);
+            toast.success(response.data.message);
+          } else {
+            toast.error(response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
     <>
       <Tabs
@@ -133,10 +164,14 @@ const Blank = () => {
       <TabPanel value={value} index={3}>
         {selectedUser && (
           <UserList
+            key={temp}
             getSelection={getSelectionDatafromGrid}
             selectedUser={selectedUser}
           />
         )}
+        <Button variant="contained" onClick={handleReturn}>
+          Return Selected books
+        </Button>
       </TabPanel>
     </>
   );
