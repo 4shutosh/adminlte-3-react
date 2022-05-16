@@ -13,7 +13,9 @@ const AddAnnouncementForm = () => {
     instance
       .post(addAnnouncementApi, {
         message: announcementMessage,
-        title: announcementTitle
+        title: announcementTitle,
+        link: announcementLink,
+        timestamp: new Date().getTime()
       })
       .then((response) => {
         console.log(response);
@@ -36,8 +38,15 @@ const AddAnnouncementForm = () => {
   const handleChangeMaxDays = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnnouncementMessage(event.target.value);
   };
+  const handleAnnouncementLinkChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setAnnouncementLink(event.target.value);
+  };
+
   const [announcementTitle, setAnnouncementTitle] = useState('');
   const [announcementMessage, setAnnouncementMessage] = useState('');
+  const [announcementLink, setAnnouncementLink] = useState('');
 
   return (
     <>
@@ -60,6 +69,12 @@ const AddAnnouncementForm = () => {
           label="Announcement Message"
           value={announcementMessage}
           onChange={handleChangeMaxDays}
+        />
+        <TextField
+          id="link"
+          label="Link"
+          value={announcementLink}
+          onChange={handleAnnouncementLinkChange}
         />
         <Button variant="contained" onClick={handleSubmit}>
           Submit
