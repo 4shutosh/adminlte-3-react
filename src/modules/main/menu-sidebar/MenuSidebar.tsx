@@ -17,6 +17,10 @@ export const MENU: IMenuItem[] = [
   {
     name: 'Courses',
     path: '/courses'
+  },
+  {
+    name: 'Announcements',
+    path: '/announcements'
   }
 ];
 

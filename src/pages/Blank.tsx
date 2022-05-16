@@ -13,6 +13,8 @@ import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import {useRef} from 'react';
 import ReactToPrint from 'react-to-print';
+import UserLibraryForm from '@app/components/userLibrary/UserLibraryForm';
+import UserList from '@app/components/userList/UserList';
 // import {Grid} from '@mui/material';
 
 function TabPanel(props: any) {
@@ -36,17 +38,19 @@ function TabPanel(props: any) {
 
 const QrElement = ({book}: {book: any}) => {
   return (
-    <Stack>
-      <QRCode
-        value={`
-            {
-                "identifier": "69694242",
-                "data": ${book.libraryBookNumber},
-            }`}
-        size={128}
-      />
-      <p>{book.bookName}</p>
-    </Stack>
+    <div>
+      <Stack>
+        <QRCode
+          value={`
+              {
+                  "identifier": "69694242",
+                  "data": ${book.libraryBookNumber},
+              }`}
+          size={128}
+        />
+        <p>{book.bookName}</p>
+      </Stack>
+    </div>
   );
 };
 
@@ -62,7 +66,7 @@ const QrGrid = React.forwardRef(
     return (
       <div style={{display: 'none'}}>
         <div ref={ref as React.RefObject<HTMLDivElement>}>
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             {gridCore}
           </Grid>
         </div>
@@ -75,6 +79,7 @@ const Blank = () => {
   const QrRef = useRef(null);
   const [value, setValue] = React.useState(0);
   const [selectedData, setSelectedData] = React.useState([]);
+  const [selectedUser, setSelectedUser] = React.useState(null);
 
   const handlePrintQR = () => {};
   const handleChange = (event: any, newValue: any) => {
@@ -83,6 +88,10 @@ const Blank = () => {
   const getSelectionDatafromGrid = (selectionDataFromGrid: any) => {
     setSelectedData(selectionDataFromGrid);
     // console.log(selectedData);
+  };
+
+  const getSelectedUser = (data: any) => {
+    setSelectedUser(data);
   };
   return (
     <>
@@ -93,6 +102,8 @@ const Blank = () => {
       >
         <Tab label="View Books" />
         <Tab label="Add a book" />
+        <Tab label="Return a book" />
+        <Tab label="User Library" />
       </Tabs>
       <TabPanel value={value} index={0}>
         <div
@@ -115,6 +126,17 @@ const Blank = () => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <BookForm />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <UserLibraryForm getSelectedUser={getSelectedUser} />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        {selectedUser && (
+          <UserList
+            getSelection={getSelectionDatafromGrid}
+            selectedUser={selectedUser}
+          />
+        )}
       </TabPanel>
     </>
   );
